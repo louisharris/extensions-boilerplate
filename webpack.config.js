@@ -98,7 +98,15 @@ module.exports = (_env,argv)=> {
         }
       ]
     },
-    resolve: { extensions: ['*', '.js', '.jsx'] },
+    resolve: { 
+      extensions: ['*', '.js', '.jsx'],
+      fallback: {
+        "buffer": false,
+        "crypto": false,
+        "util": false,
+        "stream": false
+      }
+    },
     output: {
       filename: "[name].bundle.js",
       path:bundlePath
@@ -108,7 +116,7 @@ module.exports = (_env,argv)=> {
 
   if(argv.mode==='development'){
     config.devServer = {
-      contentBase: path.join(__dirname,'public'),
+      static: path.join(__dirname,'public'),
       host:argv.devrig ? 'localhost.rig.twitch.tv' : 'localhost',
       headers: {
         'Access-Control-Allow-Origin': '*'
